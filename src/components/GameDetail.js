@@ -27,15 +27,12 @@ const GameDetail = () => {
                     </div>
                 </div>
                 <div className="media">
-                    bg image below
                     <img src={game.background_image} alt={game.background_image} />
                 </div>
                 <div className="description">
-                    desc below
                     <p>{game.description_raw}</p>
                 </div>
                 <div className="gallery">
-                    gallery below
                     {game.platforms && screen.results.map(screen=>(
                         <img src={screen.image} key={screen.id} alt={screen.image}/>
                     ))}
