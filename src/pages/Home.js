@@ -3,11 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {loadGames} from '../actions/gamesAction';
 // Styling and animation
 import styled from 'styled-components';
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion';
 // Components
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
 import { useLocation } from "react-router";
+
 
 const Home = () => {
     // get the current Location
@@ -22,46 +23,49 @@ const Home = () => {
     // retirve data
     const {popular, newGames, upcoming} = useSelector((state) => state.games);
 
+// <AnimatePresence> must be between a toggle - so click to open popup
     
     return(
         <GameList>
-            {pathID && <GameDetail/>}
-            <h2>Upcoming games</h2>
-            <Games>
-                {upcoming.map(game=>(
-                    <Game 
-                        name={game.name} 
-                        released={game.released} 
-                        id={game.id} 
-                        image={game.background_image} 
-                        key={game.id}
-                    />
-                ))}
-            </Games>
-            <h2>Popular games</h2>
-            <Games>
-                {popular.map(game=>(
-                    <Game 
-                        name={game.name} 
-                        released={game.released} 
-                        id={game.id} 
-                        image={game.background_image} 
-                        key={game.id}
-                    />
-                ))}
-            </Games>
-            <h2>New games</h2>
-            <Games>
-                {newGames.map(game=>(
-                    <Game 
-                        name={game.name} 
-                        released={game.released} 
-                        id={game.id} 
-                        image={game.background_image} 
-                        key={game.id}
-                    />
-                ))}
-            </Games>
+            <AnimateSharedLayout type="crossfade">
+                <AnimatePresence>{pathID && <GameDetail pathID={pathID}/>}</AnimatePresence>
+                <h2>Upcoming games</h2>
+                <Games>
+                    {upcoming.map(game=>(
+                        <Game 
+                            name={game.name} 
+                            released={game.released} 
+                            id={game.id} 
+                            image={game.background_image} 
+                            key={game.id}
+                        />
+                    ))}
+                </Games>
+                <h2>Popular games</h2>
+                <Games>
+                    {popular.map(game=>(
+                        <Game 
+                            name={game.name} 
+                            released={game.released} 
+                            id={game.id} 
+                            image={game.background_image} 
+                            key={game.id}
+                        />
+                    ))}
+                </Games>
+                <h2>New games</h2>
+                <Games>
+                    {newGames.map(game=>(
+                        <Game 
+                            name={game.name} 
+                            released={game.released} 
+                            id={game.id} 
+                            image={game.background_image} 
+                            key={game.id}
+                        />
+                    ))}
+                </Games>
+            </AnimateSharedLayout>
         </GameList>
     );
 }

@@ -8,8 +8,9 @@ import Game from "./Game";
 import { useHistory } from "react-router";
 import { smallImage } from "../util";
 
-const GameDetail = () => {
+const GameDetail = (pathID) => {
     const history = useHistory();
+    const pathIDString = pathID.pathID;
     // Exit detail
     const exitDetailHandler = (e) => {
         const element = e.target;
@@ -24,10 +25,10 @@ const GameDetail = () => {
         <>
         {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
-            <Detail>
+            <Detail layoutId={pathIDString}>
                 <Stats>
                     <div className="rating">
-                        <h3>{game.name}</h3>
+                        <motion.h3 layoutId={`title ${pathID}`}>{game.name}</motion.h3>
                         <p>Rating: {game.rating} </p>
                     </div>
                     <Info>
@@ -40,7 +41,7 @@ const GameDetail = () => {
                     </Info>
                 </Stats>
                 <Media>
-                    <img src={smallImage(game.background_image, 1280)} alt={game.background_image} />
+                    <motion.img layoutId={`image ${pathID}`} src={smallImage(game.background_image, 1280)} alt={game.background_image} />
                 </Media>
                 <Description>
                     <p>{game.description_raw}</p>
@@ -65,6 +66,7 @@ const CardShadow = styled(motion.div)`
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
     &::-webkit-scrollbar{
         width: 0.5rem;
     }
