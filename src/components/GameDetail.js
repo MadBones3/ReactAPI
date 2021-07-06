@@ -8,30 +8,32 @@ import Game from "./Game";
 
 const GameDetail = () => {
     // Data
-    const {game, screen} = useSelector((state) => state.detail);
+    const {game, screen, isLoading} = useSelector((state) => state.detail);
     return(
+        <>
+        {!isLoading && (
         <CardShadow>
             <Detail>
-                <div className="stats">
+                <Stats>
                     <div className="rating">
-                        <h3>{Game.name}</h3>
+                        <h3>{game.name}</h3>
                         <p>Rating: {game.rating} </p>
                     </div>
-                    <div className="info">
+                    <Info>
                         <h2>Platforms</h2>
-                        <div className="platforms">
-                            {game.platforms && game.platforms.map(data=>(
+                        <Platforms>
+                            { game.platforms.map(data=>(
                                 <h3 key={data.platform.id}>{data.platform.name}</h3>
                             ))}
-                        </div>
-                    </div>
-                </div>
-                <div className="media">
+                        </Platforms>
+                    </Info>
+                </Stats>
+                <Media>
                     <img src={game.background_image} alt={game.background_image} />
-                </div>
-                <div className="description">
+                </Media>
+                <Description>
                     <p>{game.description_raw}</p>
-                </div>
+                </Description>
                 <div className="gallery">
                     {game.platforms && screen.results.map(screen=>(
                         <img src={screen.image} key={screen.id} alt={screen.image}/>
@@ -39,6 +41,8 @@ const GameDetail = () => {
                 </div>
             </Detail>
         </CardShadow>
+        )}
+        </>
     );
 }
 
@@ -64,7 +68,7 @@ const CardShadow = styled(motion.div)`
 const Detail = styled(motion.div)`
     width: 80%;
     border-radius: 1rem;
-    padding: 2rem 20rem;
+    padding: 2rem 5rem;
     background: #fff;
     position: absolute;
     left: 10%;
@@ -73,6 +77,37 @@ const Detail = styled(motion.div)`
         width: 100%;
     }
 `;
+
+const Stats = styled(motion.div)`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const Info = styled(motion.div)`
+    text-align: center;
+`;
+
+const Platforms = styled(motion.div)`
+    display: flex;
+    justify-content: space-evenly;
+    img {
+        margin-left: 3rem;
+    }
+`;
+
+const Media = styled(motion.div)`
+    margin-top: 5rem;
+    img {
+        width: 100%;
+    }
+`;
+
+const Description = styled(motion.div)`
+    padding: 5rem 0rem;
+`;
+
+
 
 
 export default GameDetail;
