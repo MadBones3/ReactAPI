@@ -42,6 +42,9 @@ export const upcomingGamesURL = () => `${base_url}${upcoming_games}`;
 export const newGamesURL = () => `${base_url}${newGames}`;
 
 // GAME DETAILS 
-export const gameDetailsURL = (game_id) => `${base_url}games/${game_id}.json?&${apiKey};`
+export const gameDetailsURL = (game_id) => `${base_url}games/${game_id}.json?&${apiKey}`;
 // GAME screenshots 
-export const gameScreenshotURL = (game_id) => `${base_url}games/${game_id}/screenshots?&.json?&${apiKey}`
+export const gameScreenshotURL = (game_id) => `${base_url}games/${game_id}/screenshots?&.json?&${apiKey}`;
+
+// Search Game
+export const searchGameURL = (game_name) => `${base_url}games?${apiKey}&search=${game_name}&page_size=9`;

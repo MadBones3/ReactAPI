@@ -21,7 +21,7 @@ const Home = () => {
       dispatch(loadGames());
     }, [dispatch]);
     // retirve data
-    const {popular, newGames, upcoming} = useSelector((state) => state.games);
+    const {popular, newGames, upcoming, searched} = useSelector((state) => state.games);
 
 // <AnimatePresence> must be between a toggle - so click to open popup
     
@@ -29,6 +29,24 @@ const Home = () => {
         <GameList>
             <AnimateSharedLayout type="crossfade">
                 <AnimatePresence>{pathID && <GameDetail pathID={pathID}/>}</AnimatePresence>
+                {searched.length ? (
+                <div className="searched">
+                    <h2>Searched games</h2>
+                    <Games>
+                        {searched.map(game=>(
+                            <Game 
+                                name={game.name} 
+                                released={game.released} 
+                                id={game.id} 
+                                image={game.background_image} 
+                                key={game.id}
+                            />
+                        ))}
+                    </Games>
+                </div>
+                ) : (
+                    ""
+                )}
                 <h2>Upcoming games</h2>
                 <Games>
                     {upcoming.map(game=>(
