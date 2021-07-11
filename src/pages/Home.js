@@ -8,6 +8,8 @@ import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion';
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
 import { useLocation } from "react-router";
+// animations
+import { fadeIn } from "../animations";
 
 
 const Home = () => {
@@ -26,7 +28,7 @@ const Home = () => {
 // <AnimatePresence> must be between a toggle - so click to open popup
     
     return(
-        <GameList>
+        <GameList variants={fadeIn} initial="hidden" animate="show">
             <AnimateSharedLayout type="crossfade">
                 <AnimatePresence>{pathID && <GameDetail pathID={pathID}/>}</AnimatePresence>
                 {searched.length ? (
